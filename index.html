@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poptropica - Back on the Web</title>
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/creative-block-bb');
+
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #000000;
+            --text-muted: #111111;
+            --border-color: #000000;
+            --status-color: #000000;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #0a0a0a;
+            --text-color: #ffffff;
+            --text-muted: #dddddd;
+            --border-color: #ffffff;
+            --status-color: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'CreativeBlock BB', monospace, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .header-bar {
+            position: absolute;
+            top: 2rem;
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+            box-sizing: border-box;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-family: inherit;
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0;
+            text-decoration: underline;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 4px;
+            transition: opacity 0.2s;
+        }
+
+        .theme-toggle:hover {
+            opacity: 0.5;
+        }
+
+        .twitter-link {
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            transition: opacity 0.2s;
+        }
+
+        .twitter-link:hover {
+            opacity: 0.5;
+        }
+
+        .twitter-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        .twitter-handle {
+            margin-left: 8px;
+            font-size: 1rem;
+            text-transform: lowercase;
+        }
+
+        .content {
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+            padding: 2rem;
+            margin-top: 6rem;
+            /* space for the absolute header */
+            box-sizing: border-box;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: normal;
+            margin: 0 0 1rem 0;
+            letter-spacing: 1px;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            margin: 0 0 3rem 0;
+            opacity: 0.7;
+            text-transform: lowercase;
+        }
+
+        .discord-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 3rem;
+        }
+
+        .discord-link {
+            position: relative;
+            z-index: 2;
+            display: inline-block;
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 1.2rem;
+            border: 1px solid var(--border-color);
+            padding: 0.8rem 2rem;
+            background-color: var(--bg-color);
+            transition: all 0.2s ease;
+        }
+
+        .discord-link:hover {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+        }
+
+        .discord-reveal-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            color: var(--text-color);
+            z-index: 1;
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .discord-wrapper:hover .discord-reveal-icon {
+            opacity: 1;
+            transform: translate(50%, -150%);
+        }
+
+        .nav-links {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .nav-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            font-family: inherit;
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0.6rem 1.2rem;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .nav-btn:hover {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+        }
+
+        .info-section {
+            display: none;
+            margin-top: 5rem;
+            text-align: left;
+            border-top: 1px solid var(--border-color);
+            padding-top: 3rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: normal;
+            margin: 0 0 1rem 0;
+            letter-spacing: 1px;
+            text-transform: lowercase;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin: 0 0 2.5rem 0;
+            color: var(--text-muted);
+        }
+
+        p a {
+            color: inherit;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+
+        .island-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .island-item {
+            font-size: 1rem;
+            opacity: 0.8;
+            text-transform: lowercase;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header-bar">
+        <a href="https://x.com/ajeebtech" target="_blank" rel="noopener noreferrer" class="twitter-link">
+            <svg class="twitter-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+                <rect width="256" height="256" fill="none" />
+                <polygon points="48 40 96 40 208 216 160 216 48 40" fill="none" stroke="currentColor"
+                    stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
+                <line x1="113.88" y1="143.53" x2="48" y2="216" fill="none" stroke="currentColor" stroke-linecap="round"
+                    stroke-linejoin="round" stroke-width="16" />
+                <line x1="208" y1="40" x2="142.12" y2="112.47" fill="none" stroke="currentColor" stroke-linecap="round"
+                    stroke-linejoin="round" stroke-width="16" />
+            </svg>
+            <span class="twitter-handle">ajeebtech</span>
+        </a>
+        <div style="flex-grow: 1;"></div>
+        <button class="theme-toggle" onclick="toggleTheme()">[ dark mode ]</button>
+    </div>
+
+    <div class="content">
+        <h1>poptropica back on the web</h1>
+        <p class="subtitle">Access 31+ classic Poptropica islands, lost when Flash died</p>
+
+        <div class="discord-wrapper">
+            <svg class="discord-reveal-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+                <rect width="256" height="256" fill="none" />
+                <circle cx="92" cy="140" r="12" />
+                <circle cx="164" cy="140" r="12" />
+                <path
+                    d="M153.44,73.69l5-19.63a8.1,8.1,0,0,1,9.21-6L203.69,54A8.08,8.08,0,0,1,210.23,60l29.53,116.37a8,8,0,0,1-4.55,9.24l-67,29.7a8.15,8.15,0,0,1-11-4.56L147,183.06"
+                    fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                    stroke-width="16" />
+                <path
+                    d="M102.56,73.69l-5-19.63a8.1,8.1,0,0,0-9.21-6L52.31,54A8.08,8.08,0,0,0,45.77,60L16.24,176.35a8,8,0,0,0,4.55,9.24l67,29.7a8.15,8.15,0,0,0,11-4.56L109,183.06"
+                    fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                    stroke-width="16" />
+                <path d="M80,78.31A178.94,178.94,0,0,1,128,72a178.94,178.94,0,0,1,48,6.31" fill="none"
+                    stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
+                <path d="M176,177.69A178.94,178.94,0,0,1,128,184a178.94,178.94,0,0,1-48-6.31" fill="none"
+                    stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
+            </svg>
+            <a href="https://discord.gg/yZk6xVWerr" target="_blank" rel="noopener noreferrer" class="discord-link">
+                join the discord
+            </a>
+        </div>
+
+        <div class="nav-links">
+            <button class="nav-btn" onclick="toggleSection('how-we-did-this')">how we did this</button>
+            <button class="nav-btn" onclick="toggleSection('what-you-need')">what you need</button>
+            <button class="nav-btn" onclick="toggleSection('islands')">islands</button>
+        </div>
+
+        <div id="how-we-did-this" class="info-section">
+            <h2>how we did this</h2>
+            <p>we basically reverse engineered flashpoint and hosted it on a server. so everything flashpoint could do
+                is basically what we're doing directly in your browser—no downloads or plugins required.</p>
+        </div>
+
+        <div id="what-you-need" class="info-section">
+            <h2>what you need</h2>
+            <p>you will need <a href="https://tailscale.com" target="_blank" rel="noopener noreferrer">tailscale</a>
+                installed and connected to our network to access the server. once connected, you can just use a modern
+                web browser to play. no other plugins or special software are required.</p>
+        </div>
+
+        <div id="islands" class="info-section">
+            <h2>islands</h2>
+            <p>we have restored 31+ classic islands.</p>
+            <div class="island-list">
+                <div class="island-item">early poptropica</div>
+                <div class="island-item">shark tooth</div>
+                <div class="island-item">time tangled</div>
+                <div class="island-item">24 carrot</div>
+                <div class="island-item">super power</div>
+                <div class="island-item">spy island</div>
+                <div class="island-item">nabooti</div>
+                <div class="island-item">big nate</div>
+                <div class="island-item">astro-knights</div>
+                <div class="island-item">counterfeit</div>
+                <div class="island-item">reality tv</div>
+                <div class="island-item">mythology</div>
+                <div class="island-item">skullduggery</div>
+                <div class="island-item">steamworks</div>
+                <div class="island-item">cryptids</div>
+                <div class="island-item">wild west</div>
+                <div class="island-item">wimpy wonderland</div>
+                <div class="island-item">red dragon</div>
+                <div class="island-item">mystery train</div>
+                <div class="island-item">game show</div>
+                <div class="island-item">ghost story</div>
+                <div class="island-item">vampire's curb</div>
+                <div class="island-item">twisted thicket</div>
+                <div class="island-item">poptropolis games</div>
+                <div class="island-item">zomberry</div>
+                <div class="island-item">night watch</div>
+                <div class="island-item">back lot</div>
+                <div class="island-item">virus hunter</div>
+            </div>
+            <p style="margin-top: 2rem; opacity: 0.6;">...and many more being restored.</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleSection(id) {
+            const sections = document.querySelectorAll('.info-section');
+            const target = document.getElementById(id);
+
+            // Hide all other sections
+            sections.forEach(s => {
+                if (s.id !== id) s.style.display = 'none';
+            });
+
+            // Toggle target section
+            if (target.style.display === 'block') {
+                target.style.display = 'none';
+            } else {
+                target.style.display = 'block';
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function toggleTheme() {
+            const body = document.documentElement;
+            const btn = document.querySelector('.theme-toggle');
+
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+                btn.textContent = '[ dark mode ]';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                btn.textContent = '[ light mode ]';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Check for saved theme preference or system preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            document.querySelector('.theme-toggle').textContent = '[ light mode ]';
+        }
+    </script>
+</body>
+
+</html>
