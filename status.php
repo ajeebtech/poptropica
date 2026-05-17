@@ -19,7 +19,9 @@ if ($output) {
     $data = json_decode($output, true);
     if (is_array($data) && isset($data['Peer']) && is_array($data['Peer'])) {
         foreach ($data['Peer'] as $peerKey => $peer) {
-            if (isset($peer['Online']) && $peer['Online'] === true) {
+            $isOnline = (isset($peer['Online']) && $peer['Online'] === true);
+            $isActive = (isset($peer['Active']) && $peer['Active'] === true);
+            if ($isOnline || $isActive) {
                 $onlineCount++;
             }
         }
