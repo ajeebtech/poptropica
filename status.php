@@ -1,5 +1,4 @@
 <?php
-header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 
 $cacheFile = 'status.json';
@@ -14,33 +13,17 @@ if (file_exists($cacheFile) && (time() - filemtime($cacheFile)) < $cacheTime) {
 $onlineCount = 0;
 $success = false;
 
-// Attempt 1: Try executing headscale CLI nodes list (requires www-data in headscale group)
-$output = shell_exec('headscale nodes list -o json 2>/dev/null');
+// Execute tailscale status --json
+$output = shell_exec('tailscale status --json 2>/dev/null');
 if ($output) {
-    $nodes = json_decode($output, true);
-    if (is_array($nodes)) {
-        foreach ($nodes as $node) {
-            if (isset($node['online']) && $node['online'] === true) {
+    $data = json_decode($output, true);
+    if (is_array($data) && isset($data['Peer']) && is_array($data['Peer'])) {
+        foreach ($data['Peer'] as $peerKey => $peer) {
+            if (isset($peer['Online']) && $peer['Online'] === true) {
                 $onlineCount++;
             }
         }
         $success = true;
-    }
-}
-
-// Attempt 2: Try executing headscale CLI machines list (older headscale versions)
-if (!$success) {
-    $output = shell_exec('headscale machines list -o json 2>/dev/null');
-    if ($output) {
-        $nodes = json_decode($output, true);
-        if (is_array($nodes)) {
-            foreach ($nodes as $node) {
-                if (isset($node['online']) && $node['online'] === true) {
-                    $onlineCount++;
-                }
-            }
-            $success = true;
-        }
     }
 }
 
@@ -54,7 +37,7 @@ if ($success) {
     file_put_contents($cacheFile, json_encode($result));
     echo json_encode($result);
 } else {
-    // If we failed to query headscale, see if we can serve the stale cache
+    // If we failed to query tailscale, see if we can serve the stale cache
     if (file_exists($cacheFile)) {
         echo file_get_contents($cacheFile);
     } else {
@@ -63,7 +46,7 @@ if ($success) {
             'status' => 'online',
             'online_users' => 0,
             'last_updated' => time(),
-            'note' => 'could not query headscale directly from web server'
+            'note' => 'could not query tailscale status'
         ]);
     }
 }
