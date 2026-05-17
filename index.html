@@ -403,10 +403,10 @@
                 let endpoint = '/api/status'; // Default for Vercel production proxy
                 
                 if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-                    endpoint = 'http://100.81.219.103/status.php'; // Local dev testing
+                    endpoint = 'http://100.64.0.1/status.php'; // Local dev testing
                 } else if (window.location.protocol === 'file:') {
-                    endpoint = 'http://100.81.219.103/status.php'; // File opened locally
-                } else if (window.location.hostname === '100.81.219.103' || window.location.hostname.endsWith('.ts.net')) {
+                    endpoint = 'http://100.64.0.1/status.php'; // File opened locally
+                } else if (window.location.hostname === '100.64.0.1' || window.location.hostname.endsWith('.ts.net')) {
                     endpoint = '/status.php'; // Accessing VPS landing page directly over Tailscale
                 }
                 
