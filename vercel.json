@@ -1,5 +1,11 @@
 {
   "framework": null,
   "buildCommand": null,
-  "outputDirectory": "."
+  "outputDirectory": ".",
+  "rewrites": [
+    {
+      "source": "/api/status",
+      "destination": "http://157.245.97.194/status.php"
+    }
+  ]
 }

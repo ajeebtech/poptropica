@@ -399,7 +399,12 @@
             const statusDot = document.querySelector('.status-indicator-dot');
             
             try {
-                const response = await fetch('http://157.245.97.194/status.php');
+                // Bypass mixed-content blocks: Use relative reverse-proxy /api/status on Vercel production,
+                // and direct HTTP on local environments.
+                const isProduction = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1' && window.location.protocol !== 'file:';
+                const endpoint = isProduction ? '/api/status' : 'http://157.245.97.194/status.php';
+                
+                const response = await fetch(endpoint);
                 if (!response.ok) throw new Error('Network response was not ok');
                 
                 const data = await response.json();
