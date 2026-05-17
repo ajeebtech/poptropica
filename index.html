@@ -425,7 +425,13 @@
                     endpoint = '/status.php'; // Accessing VPS landing page directly over Tailscale
                 }
 
-                const response = await fetch(endpoint);
+                // Set up a 3-second timeout for the status check to avoid hanging on unreachable routes (e.g. if Tailscale is stopped)
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 3000);
+
+                const response = await fetch(endpoint, { signal: controller.signal });
+                clearTimeout(timeoutId);
+
                 if (!response.ok) throw new Error('Network response was not ok');
 
                 const data = await response.json();
