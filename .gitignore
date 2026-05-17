@@ -1,7 +1,8 @@
 # Ignore everything
 *
 
-# Except for index.html, vercel.json, and this .gitignore
+# Except for index.html, vercel.json, status.php, and this .gitignore
 !index.html
 !vercel.json
+!status.php
 !.gitignore
