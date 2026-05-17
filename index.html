@@ -406,7 +406,7 @@
                     endpoint = 'http://100.64.0.1/status.php'; // Local dev testing
                 } else if (window.location.protocol === 'file:') {
                     endpoint = 'http://100.64.0.1/status.php'; // File opened locally
-                } else if (window.location.hostname === '100.64.0.1' || window.location.hostname.endsWith('.ts.net')) {
+                } else if (window.location.hostname === '100.64.0.1' || window.location.hostname === 'poptropica.com' || window.location.hostname === 'www.poptropica.com' || window.location.hostname.endsWith('.ts.net')) {
                     endpoint = '/status.php'; // Accessing VPS landing page directly over Tailscale
                 }
                 
