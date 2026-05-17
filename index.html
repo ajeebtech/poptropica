@@ -47,9 +47,16 @@
             max-width: 600px;
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
             padding: 0 2rem;
             box-sizing: border-box;
+        }
+
+        .header-left {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 6px;
         }
 
         .theme-toggle {
@@ -226,84 +233,52 @@
         }
 
         .status-container {
-            display: inline-flex;
+            display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin: -1.5rem 0 2.5rem 0;
-            font-size: 0.9rem;
+            gap: 6px;
+            font-size: 0.8rem;
             text-transform: lowercase;
             letter-spacing: 0.5px;
-            background: rgba(0, 0, 0, 0.03);
-            border: 1px solid var(--border-color);
-            padding: 0.5rem 1.2rem;
-            border-radius: 30px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        [data-theme="dark"] .status-container {
-            background: rgba(255, 255, 255, 0.03);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
-
-        .status-container:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
-        }
-
-        [data-theme="dark"] .status-container:hover {
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+            opacity: 0.6;
         }
 
         .status-indicator-dot {
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
             background-color: #888888;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .status-indicator-dot.online {
             background-color: #10b981; /* emerald green */
-            box-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
-            animation: pulse 2s infinite;
         }
 
         .status-indicator-dot.offline {
             background-color: #ef4444; /* red */
-            box-shadow: 0 0 10px rgba(239, 68, 68, 0.6);
-        }
-
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
-            }
-            70% {
-                box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
-            }
         }
     </style>
 </head>
 
 <body>
     <div class="header-bar">
-        <a href="https://x.com/ajeebtech" target="_blank" rel="noopener noreferrer" class="twitter-link">
-            <svg class="twitter-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
-                <rect width="256" height="256" fill="none" />
-                <polygon points="48 40 96 40 208 216 160 216 48 40" fill="none" stroke="currentColor"
-                    stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
-                <line x1="113.88" y1="143.53" x2="48" y2="216" fill="none" stroke="currentColor" stroke-linecap="round"
-                    stroke-linejoin="round" stroke-width="16" />
-                <line x1="208" y1="40" x2="142.12" y2="112.47" fill="none" stroke="currentColor" stroke-linecap="round"
-                    stroke-linejoin="round" stroke-width="16" />
-            </svg>
-            <span class="twitter-handle">ajeebtech</span>
-        </a>
+        <div class="header-left">
+            <a href="https://x.com/ajeebtech" target="_blank" rel="noopener noreferrer" class="twitter-link">
+                <svg class="twitter-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+                    <rect width="256" height="256" fill="none" />
+                    <polygon points="48 40 96 40 208 216 160 216 48 40" fill="none" stroke="currentColor"
+                        stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
+                    <line x1="113.88" y1="143.53" x2="48" y2="216" fill="none" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="16" />
+                    <line x1="208" y1="40" x2="142.12" y2="112.47" fill="none" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="16" />
+                </svg>
+                <span class="twitter-handle">ajeebtech</span>
+            </a>
+            <div class="status-container">
+                <span class="status-indicator-dot"></span>
+                <span class="status-text">checking...</span>
+            </div>
+        </div>
         <div style="flex-grow: 1;"></div>
         <button class="theme-toggle" onclick="toggleTheme()">[ dark mode ]</button>
     </div>
@@ -311,11 +286,6 @@
     <div class="content">
         <h1>poptropica back on the web</h1>
         <p class="subtitle">Access 31+ classic Poptropica islands, lost when Flash died</p>
-
-        <div class="status-container">
-            <span class="status-indicator-dot"></span>
-            <span class="status-text">checking server status...</span>
-        </div>
 
         <div class="discord-wrapper">
             <svg class="discord-reveal-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 127.14 96.36">
