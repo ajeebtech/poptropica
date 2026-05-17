@@ -14,6 +14,7 @@
             --text-muted: #111111;
             --border-color: #000000;
             --status-color: #000000;
+            --discord-color: #5865F2;
         }
 
         [data-theme="dark"] {
@@ -22,6 +23,7 @@
             --text-muted: #dddddd;
             --border-color: #ffffff;
             --status-color: #ffffff;
+            --discord-color: #ffffff;
         }
 
         body {
@@ -146,14 +148,10 @@
             transform: translate(-50%, -50%);
             width: 40px;
             height: 40px;
-            color: var(--text-color);
+            color: var(--discord-color);
             z-index: 1;
             opacity: 0;
             transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .discord-reveal-icon circle {
-            fill: var(--bg-color);
         }
 
         .discord-wrapper:hover .discord-reveal-icon {
@@ -252,22 +250,8 @@
         <p class="subtitle">Access 31+ classic Poptropica islands, lost when Flash died</p>
 
         <div class="discord-wrapper">
-            <svg class="discord-reveal-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
-                <rect width="256" height="256" fill="none" />
-                <circle cx="92" cy="140" r="12" />
-                <circle cx="164" cy="140" r="12" />
-                <path
-                    d="M153.44,73.69l5-19.63a8.1,8.1,0,0,1,9.21-6L203.69,54A8.08,8.08,0,0,1,210.23,60l29.53,116.37a8,8,0,0,1-4.55,9.24l-67,29.7a8.15,8.15,0,0,1-11-4.56L147,183.06"
-                    fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                    stroke-width="16" />
-                <path
-                    d="M102.56,73.69l-5-19.63a8.1,8.1,0,0,0-9.21-6L52.31,54A8.08,8.08,0,0,0,45.77,60L16.24,176.35a8,8,0,0,0,4.55,9.24l67,29.7a8.15,8.15,0,0,0,11-4.56L109,183.06"
-                    fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                    stroke-width="16" />
-                <path d="M80,78.31A178.94,178.94,0,0,1,128,72a178.94,178.94,0,0,1,48,6.31" fill="none"
-                    stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
-                <path d="M176,177.69A178.94,178.94,0,0,1,128,184a178.94,178.94,0,0,1-48-6.31" fill="none"
-                    stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
+            <svg class="discord-reveal-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 127.14 96.36">
+                <path d="M107.7,8.07A105.15,105.15,0,0,0,77.26,0a77.19,77.19,0,0,0-3.3,6.83A96.67,96.67,0,0,0,53.22,6.83,77.19,77.19,0,0,0,49.88,0,105.15,105.15,0,0,0,19.44,8.07C3.66,31.58-1.86,54.65,1,77.53A105.73,105.73,0,0,0,32,96.36a77.7,77.7,0,0,0,6.63-10.85,68.43,68.43,0,0,1-10.5-5c.87-.64,1.71-1.32,2.51-2a75.46,75.46,0,0,0,76,0c.8.71,1.64,1.39,2.51,2a68.43,68.43,0,0,1-10.5,5,77.7,77.7,0,0,0,6.63,10.85,105.73,105.73,0,0,0,31-18.83C129.87,48.12,123.82,25.44,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53S36.18,40.36,42.45,40.36,53.83,46,53.83,53,48.72,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.24,60,73.24,53S78.41,40.36,84.69,40.36,96.07,46,96.07,53,91,65.69,84.69,65.69Z" fill="currentColor"/>
             </svg>
             <a href="https://discord.gg/yZk6xVWerr" target="_blank" rel="noopener noreferrer" class="discord-link">
                 join the discord
