@@ -399,10 +399,16 @@
             const statusDot = document.querySelector('.status-indicator-dot');
             
             try {
-                // Bypass mixed-content blocks: Use relative reverse-proxy /api/status on Vercel production,
-                // and direct HTTP on local environments.
-                const isProduction = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1' && window.location.protocol !== 'file:';
-                const endpoint = isProduction ? '/api/status' : 'http://157.245.97.194/status.php';
+                // Select proper endpoint depending on active environment
+                let endpoint = '/api/status'; // Default for Vercel production proxy
+                
+                if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                    endpoint = 'http://100.81.219.103/status.php'; // Local dev testing
+                } else if (window.location.protocol === 'file:') {
+                    endpoint = 'http://100.81.219.103/status.php'; // File opened locally
+                } else if (window.location.hostname === '100.81.219.103' || window.location.hostname.endsWith('.ts.net')) {
+                    endpoint = '/status.php'; // Accessing VPS landing page directly over Tailscale
+                }
                 
                 const response = await fetch(endpoint);
                 if (!response.ok) throw new Error('Network response was not ok');
