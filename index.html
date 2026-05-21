@@ -230,6 +230,17 @@
             font-size: 1rem;
             opacity: 0.8;
             text-transform: lowercase;
+            color: inherit;
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.2s ease, opacity 0.2s ease;
+        }
+
+        .island-item:hover {
+            color: #ffcc00;
+            opacity: 1;
+            text-decoration: underline;
+            text-underline-offset: 4px;
         }
 
         .status-container {
@@ -325,35 +336,35 @@
             <h2>islands</h2>
             <p>we have restored 31+ classic islands.</p>
             <div class="island-list">
-                <div class="island-item">early poptropica</div>
-                <div class="island-item">shark tooth</div>
-                <div class="island-item">time tangled</div>
-                <div class="island-item">24 carrot</div>
-                <div class="island-item">super power
-                </div>
-                <div class="island-item">spy island</div>
-                <div class="island-item">nabooti</div>
-                <div class="island-item">big nate</div>
-                <div class="island-item">astro-knights</div>
-                <div class="island-item">counterfeit</div>
-                <div class="island-item">reality tv</div>
-                <div class="island-item">mythology</div>
-                <div class="island-item">skullduggery</div>
-                <div class="island-item">steamworks</div>
-                <div class="island-item">cryptids</div>
-                <div class="island-item">wild west</div>
-                <div class="island-item">wimpy wonderland</div>
-                <div class="island-item">red dragon</div>
-                <div class="island-item">mystery train</div>
-                <div class="island-item">game show</div>
-                <div class="island-item">ghost story</div>
-                <div class="island-item">vampire's curb</div>
-                <div class="island-item">twisted thicket</div>
-                <div class="island-item">poptropolis games</div>
-                <div class="island-item">zomberry</div>
-                <div class="island-item">night watch</div>
-                <div class="island-item">back lot</div>
-                <div class="island-item">virus hunter</div>
+                <a href="base.php?island=Early&room=City2" class="island-item">early poptropica</a>
+                <a href="base.php?island=Shark&room=Mainstreet" class="island-item">shark tooth</a>
+                <a href="base.php?island=Time&room=Present" class="island-item">time tangled</a>
+                <a href="base.php?island=Carrot&room=CarrotMain" class="island-item">24 carrot</a>
+                <a href="base.php?island=Super&room=SuperMain" class="island-item">super power</a>
+                <a href="base.php?island=Spy&room=SpyMain" class="island-item">spy island</a>
+                <a href="base.php?island=Nabooti&room=NabootiMain" class="island-item">nabooti</a>
+                <a href="base.php?island=BigNate&room=BigNateMain" class="island-item">big nate</a>
+                <a href="base.php?island=Astro&room=AstroMain" class="island-item">astro-knights</a>
+                <a href="base.php?island=Counter&room=CounterMain" class="island-item">counterfeit</a>
+                <a href="base.php?island=Reality&room=RealityMain" class="island-item">reality tv</a>
+                <a href="base.php?island=MythAS2&room=MythMain" class="island-item">mythology</a>
+                <a href="base.php?island=Skullduggery&room=GlobalAS3Embassy" class="island-item">skullduggery</a>
+                <a href="base.php?island=Steam&room=SteamMain" class="island-item">steamworks</a>
+                <a href="base.php?island=Cryptid&room=CryptidMain" class="island-item">cryptids</a>
+                <a href="base.php?island=West&room=WestMain" class="island-item">wild west</a>
+                <a href="base.php?island=Wimpy&room=WimpyMain" class="island-item">wimpy wonderland</a>
+                <a href="base.php?island=Japan&room=JapanMain" class="island-item">red dragon</a>
+                <a href="base.php?island=Train&room=TrainMain" class="island-item">mystery train</a>
+                <a href="base.php?island=GameShow&room=GameShowMain" class="island-item">game show</a>
+                <a href="base.php?island=Ghost&room=GhostMain" class="island-item">ghost story</a>
+                <a href="base.php?island=Vampire&room=VampireMain" class="island-item">vampire's curb</a>
+                <a href="base.php?island=Woodland&room=WoodlandMain" class="island-item">twisted thicket</a>
+                <a href="base.php?island=Tribal&room=TribalMain" class="island-item">poptropolis games</a>
+                <a href="base.php?island=Zombie&room=ZombieMain" class="island-item">zomberry</a>
+                <a href="base.php?island=NightWatch&room=NightWatchMain" class="island-item">night watch</a>
+                <a href="base.php?island=Backlot&room=BacklotMain" class="island-item">back lot</a>
+                <a href="base.php?island=VirusHunter&room=GlobalAS3Embassy" class="island-item">virus hunter</a>
+                <a href="base.php?island=Charlie&room=CharlieMain" class="island-item">charlie & chocolate</a>
             </div>
             <p style="margin-top: 2rem; opacity: 0.6;">...and many more being restored.</p>
         </div>
@@ -454,6 +465,23 @@
         // Initialize immediately and poll every 30 seconds
         fetchServerStatus();
         setInterval(fetchServerStatus, 30000);
+
+        // Intelligent router for local offline files vs live server
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.island-item').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetUrl = this.getAttribute('href');
+                    if (window.location.protocol === 'file:') {
+                        // Force redirect to the live private server
+                        window.location.href = 'http://poptropica.com/' + targetUrl;
+                    } else {
+                        // Natively resolve on the server
+                        window.location.href = targetUrl;
+                    }
+                });
+            });
+        });
     </script>
 </body>
 
