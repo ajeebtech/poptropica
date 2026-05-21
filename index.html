@@ -466,13 +466,14 @@
         fetchServerStatus();
         setInterval(fetchServerStatus, 30000);
 
-        // Intelligent router for local offline files vs live server
+        // Intelligent router for Vercel/local files vs live server
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('.island-item').forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
                     const targetUrl = this.getAttribute('href');
-                    if (window.location.protocol === 'file:') {
+                    const host = window.location.hostname;
+                    if (host !== 'poptropica.com' && host !== 'www.poptropica.com' && host !== '100.64.0.1') {
                         // Force redirect to the live private server
                         window.location.href = 'http://poptropica.com/' + targetUrl;
                     } else {
